@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Login</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
+  <script>
+    function checkUser(event) {
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+          <div class="text-center">
+            <h3 class="text-primary">Choose Education Level</h3>
+          </div>
+          <form method="post" action="results">
+            <div class="input-group mb-3">
+              <span class="input-group-text bg-primary">
+                <i class="bi bi-person-circle text-white"></i>
+              </span>
+              <input id="fName" name="fName" type="text" class="form-control" placeholder="First Name">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text bg-primary">
+                <i class="bi bi-person-circle text-white"></i>
+              </span>
+              <input id="lName" name="lName" type="text" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text bg-primary">
+                <i class="bi bi-person-plus-fill text-white"></i>
+              </span>
+              <input id="email" name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text bg-primary">
+                <i class="bi bi-person-plus-fill text-white"></i>
+              </span>
+              <input id="accountNum" name="accountNum" type="number" class="form-control" placeholder="Account Number">
+            </div>
+            <div class="text-center">
+              <button class="btn btn-primary mt-2" type="submit">
+                Next
+              </button>
+            </div>
+          </form>
+          <button class="btn btn-primary mt-2" onclick="window.location.href='/'">Return to main</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

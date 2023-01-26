@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap 5 Login Form Example</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+
+  <script>
+    function checkPassword(event) {
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+          <div class="text-center">
+            <h3 class="text-primary">Register New Account</h3>
+          </div>
+          <form onSubmit="return checkPassword(event);" method="post">
+            <div class="p-4">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-circle text-white"></i>
+                </span>
+                <input id="fName" name="fName" type="text" class="form-control" placeholder="First Name">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-circle text-white"></i>
+                </span>
+                <input id="lName" name="lName" type="text" class="form-control" placeholder="Last Name">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-plus-fill text-white"></i>
+                </span>
+                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
+                <input id="password1" type="password" class="form-control" placeholder="Password">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
+                <input id="password2" type="password" class="form-control" placeholder="Re-enter Password">
+              </div>
+              <div>
+                <p id="message" class="text-danger" style="height:25px">
+                  PROBLEM MESSAGE HERE
+                </p>
+              </div>
+              <input type="hidden" id="hash" name="hash">
+              <input type="hidden" id="salt" name="salt">
+                <div class="text-center">
+                <button class="btn btn-primary mt-2" type="submit">
+                  Create Account
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

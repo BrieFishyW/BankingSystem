@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Transfer</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
+      </head>
+<body>
+    <div class="container-fluid vh-100" style="margin-top:100px">
+        <div class="" style="margin-top:100px">
+            <div class="rounded d-flex justify-content-center">
+                <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+                    <div class="text-center">
+                        <h1>Make a Transfer</h1>
+                    </div>
+                    <form>
+                    <div style="border-color: gray; border: solid; border-radius: 10px; background-color: #f2f2f2; margin: 10px; padding: 10 px;">
+                        <h3>From:</h3>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-primary">
+                              <i class="bi bi-mortarboard-fill text-white"></i>
+                            </span>
+                            <select id="from" name="from" class="form-control" style="appearance:menulist">
+                              <option selected disabled hidden>From</option>
+                              <option value="Savings">Savings: $1212.64</option>
+                              <option value="Checking">Checking: $152.60</option>
+                            </select>
+                          </div>
+                    </div>
+                    <div style="border-color: gray; border: solid; border-radius: 10px; background-color: #f2f2f2; margin: 10px; padding: 10 px;">
+                        <h3>To</h3>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-primary">
+                              <i class="bi bi-mortarboard-fill text-white"></i>
+                            </span>
+                            <select id="from" name="from" class="form-control" style="appearance:menulist">
+                              <option selected disabled hidden>To</option>
+                              <option value="Savings">Savings: $1212.64</option>
+                              <option value="Checking">Checking: $152.60</option>
+                              <option value="Another User">Another User</option>
+                            </select>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-primary">
+                                  <i class="bi bi-person-plus-fill text-white"></i>
+                                </span>
+                                <input id="accountNum" name="accountNum" type="number" class="form-control" placeholder="Account Number">
+                              </div>
+                          </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary mt-2">
+                            Back
+                        </button>
+                        <button class="btn btn-primary mt-2" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
