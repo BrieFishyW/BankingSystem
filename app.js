@@ -11,8 +11,9 @@ var searchRouter = require('./routes/search');
 var resultsRouter = require('./routes/results');
 var accountRouter = require('./routes/account');
 var changePasswordRouter = require('./routes/changePassword');
-var accountHistoryRouter = require('./routes/accounthistory')
-var transferRouter = require('./routes/transfer')
+var accountHistoryRouter = require('./routes/accounthistory');
+var transferRouter = require('./routes/transfer');
+var adminRegradeRouter = require('./routes/adminregrade');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/account', accountRouter);
 app.use('/changePassword', changePasswordRouter);
 app.use('/accounthistory', accountHistoryRouter);
 app.use('/transfer', transferRouter);
+app.use('/regrade', adminRegradeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
