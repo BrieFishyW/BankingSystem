@@ -11,6 +11,11 @@
   <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
   <script>
     function checkUser(event) {
+      email = document.getElementById("email").value;
+      if (email == "") {
+        document.getElementById("message").innerHTML = "Please enter an email address";
+        event.preventDefault();
+      }
     }
   </script>
 
@@ -30,11 +35,11 @@
                 <span class="input-group-text bg-primary">
                   <i class="bi bi-person-plus-fill text-white"></i>
                 </span>
-                <input id="username" name="username" type="text" class="form-control" autofocus="autofocus" placeholder="Username">
+                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
               </div>
               <div>
                 <p id="message" class="text-danger">
-                  MESSAGE GOES HERE
+                  <%- locals.message %>
                 </p>
               </div>
               <div class="text-center">
@@ -42,6 +47,9 @@
                   Next
                 </button>
               </div>
+              <p class="text-center mt-5">Don't have an account?
+                <span class="text-primary"><a href="/register">Sign Up</a></span>
+              </p>
             </div>
           </form>
         </div>

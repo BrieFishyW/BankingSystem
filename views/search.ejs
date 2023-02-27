@@ -10,7 +10,17 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
   <script>
-    function checkUser(event) {
+    function checkInput(event) {
+      if ((document.getElementById("fName").value == null
+        || document.getElementById("fName").value == '')
+        && (document.getElementById("lName").value == null
+        || document.getElementById("lName").value == '')
+        && (document.getElementById("email").value == null
+        || document.getElementById("email").value == '')) 
+      {
+        document.getElementById("message").innerHTML = "Enter data to search with."
+        event.preventDefault();
+      }
     }
   </script>
 
@@ -22,9 +32,9 @@
       <div class="rounded d-flex justify-content-center">
         <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
           <div class="text-center">
-            <h3 class="text-primary">Choose Education Level</h3>
+            <h3 class="text-primary">Choose Search Info</h3>
           </div>
-          <form method="post" action="results">
+          <form method="post" onSubmit="return checkInput(event);">
             <div class="input-group mb-3">
               <span class="input-group-text bg-primary">
                 <i class="bi bi-person-circle text-white"></i>
@@ -43,19 +53,19 @@
               </span>
               <input id="email" name="email" type="email" class="form-control" placeholder="Email">
             </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text bg-primary">
-                <i class="bi bi-person-plus-fill text-white"></i>
-              </span>
-              <input id="accountNum" name="accountNum" type="number" class="form-control" placeholder="Account Number">
-            </div>
             <div class="text-center">
+                <p id="message" class="text-danger">
+                  <%- locals.message %>
+                </p>
               <button class="btn btn-primary mt-2" type="submit">
                 Next
               </button>
             </div>
           </form>
-          <button class="btn btn-primary mt-2" onclick="window.location.href='/'">Return to main</button>
+          <a href="/account"><button class="btn btn-primary mt-2" >Return to main</button></a>
+          <a href="/logout"><button class="btn btn-primary mt-2">
+              Log Out
+          </button></a>
         </div>
       </div>
     </div>

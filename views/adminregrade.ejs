@@ -14,15 +14,17 @@
             <div class="rounded d-flex justify-content-center">
               <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
                 <div class="text-center">
-                  <h3 class="text-primary">Account Name</h3>
+                  <h3 class="text-primary"><%- locals.name %></h3>
+                  <p><%- locals.email %></p>
+                  <p><%- locals.accountType %></p>
                 </div>
-                <form>
+                <form id="changeAccountType" method="post">
                   <div class="p-4">
                       <div class="input-group mb-3">
                         <span class="input-group-text bg-primary">
                           <i class="bi bi-clipboard-data-fill text-white"></i>
                         </span>
-                        <select id="education" name="education" class="form-control" style="appearance:menulist">
+                        <select id="accountType" name="accountType" class="form-control" style="appearance:menulist">
                           <option selected disabled hidden>Account Type</option>
                           <option value="Customer">Customer</option>
                           <option value="Employee">Employee</option>
@@ -31,13 +33,20 @@
                       </div> 
                     <div>
                       <p id="message" class="text-danger">
-                        MESSAGE GOES HERE
+                        <%- locals.message %>
                       </p>
                     </div>
                     <div class="text-center">
                       <button class="btn btn-primary mt-2" type="submit">
                         Submit
                       </button>
+                      
+                      <a href="/search"><button class="btn btn-primary mt-2" type="button">
+                        Back to Search
+                      </button></a>
+                      <a href="/account"><button class="btn btn-primary mt-2" type="button">
+                        Back to Account
+                      </button></a>
                     </div>
                   </div>
                 </form>

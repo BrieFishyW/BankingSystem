@@ -8,9 +8,34 @@
   <title>Bootstrap 5 Login Form Example</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+  <script type="text/javascript" src="crypto-js.js"></script>
 
   <script>
     function checkPassword(event) {
+      // Get the two passwords entered
+      const password1 = document.getElementById("password1").value;
+      const password2 = document.getElementById("password2").value;
+      let passwordValid = false;
+      let message = "";
+      if(password1 == "") {
+        message = "Please enter a password";
+      } else if (password2 == ""){
+        message = "Please re-enter the password";
+      } else if (password1 != password2) {
+        message = "Passwords do not match";
+      } else {
+        passwordValid = true;
+      }
+
+      if (!passwordValid) {
+        document.getElementById("message").innerHTML = message;
+        event.preventDefault();
+      } else {
+        let salt = CryptoJS.lib.WordArray.random(8);
+        document.getElementById("salt").value = salt;
+        let hashed = CryptoJS.SHA256(password1 + ":" + salt).toString(CryptoJS.enc.Hex);
+        document.getElementById("hash").value = hashed;
+      }
     }
   </script>
 
@@ -28,6 +53,12 @@
             <div class="p-4">
               <div class="input-group mb-3">
                 <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-plus-fill text-white"></i>
+                </span>
+                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
                   <i class="bi bi-person-circle text-white"></i>
                 </span>
                 <input id="fName" name="fName" type="text" class="form-control" placeholder="First Name">
@@ -39,12 +70,6 @@
                 <input id="lName" name="lName" type="text" class="form-control" placeholder="Last Name">
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text bg-primary">
-                  <i class="bi bi-person-plus-fill text-white"></i>
-                </span>
-                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
-              </div>
-              <div class="input-group mb-3">
                 <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
                 <input id="password1" type="password" class="form-control" placeholder="Password">
               </div>
@@ -54,7 +79,7 @@
               </div>
               <div>
                 <p id="message" class="text-danger" style="height:25px">
-                  PROBLEM MESSAGE HERE
+                  <%- locals.message %>
                 </p>
               </div>
               <input type="hidden" id="hash" name="hash">

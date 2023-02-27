@@ -7,6 +7,51 @@
         <title>Transfer</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
+        <script>
+          function checkOtherUser() {
+            let value = document.getElementById("to").value;
+            if (value == "Another User (checking)" || value == "Another User (savings)") {
+              document.getElementById("otherEmailDiv").style.visibility = "visible";
+              document.getElementById("memoDiv").style.visibility = "hidden";
+            } else {
+              document.getElementById("otherEmailDiv").style.visibility = "hidden";
+              document.getElementById("memoDiv").style.visibility = "visible";
+            }
+          }
+
+          function checkSubmission(event){
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let amount = document.getElementById("amount").value;
+            let otherEmail = document.getElementById("otherEmail").value;
+            if (from == "" || to == "") {
+              document.getElementById("message").innerHTML = 
+                  "Must chose a From account and a To account.";
+              event.preventDefault();
+            }else if (from == to) {
+              document.getElementById("message").innerHTML = 
+                  "From and To fields cannot be the same.";
+              event.preventDefault();
+            } else if ((to == "Another User (checking)" || to == "Another User (savings)") && (otherEmail === null || otherEmail == '') ) {
+              document.getElementById("message").innerHTML = 
+                  "Enter the email of the user to transfer to.";
+              event.preventDefault();
+            }else if (amount === null || amount == ""){
+              document.getElementById("message").innerHTML = 
+                  "Enter an amount to transfer.";
+              event.preventDefault();
+            } else {
+              var savingsAmount = <%- locals.savings %>;
+              var checkingAmount = <%- locals.checking %>;
+              if ((from == "Savings"  && amount >  savingsAmount)
+                        || (from == "Checking" && amount >  checkingAmount)){
+                document.getElementById("message").innerHTML = 
+                    "Amount must be less than the balance of the From account.";
+                event.preventDefault();
+              }
+            }
+          }
+        </script>
       </head>
 <body>
     <div class="container-fluid vh-100" style="margin-top:100px">
@@ -15,46 +60,67 @@
                 <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
                     <div class="text-center">
                         <h1>Make a Transfer</h1>
+                        <h3><%- locals.name %></h3>
                     </div>
-                    <form>
-                    <div style="border-color: gray; border: solid; border-radius: 10px; background-color: #f2f2f2; margin: 10px; padding: 10 px;">
+                    <form onSubmit="return checkSubmission(event);" method="post">
                         <h3>From:</h3>
                         <div class="input-group mb-3">
                             <span class="input-group-text bg-primary">
                               <i class="bi bi-mortarboard-fill text-white"></i>
                             </span>
                             <select id="from" name="from" class="form-control" style="appearance:menulist">
-                              <option selected disabled hidden>From</option>
-                              <option value="Savings">Savings: $1212.64</option>
-                              <option value="Checking">Checking: $152.60</option>
+                              <option selected disabled hidden value="">From</option>
+                              <option value="Savings">Savings: $<%- locals.savings%></option>
+                              <option value="Checking">Checking: $<%- locals.checking%></option>
+                              <% if (locals.empManage) { %> <option value="Deposit">Deposit</option><% } %>
                             </select>
                           </div>
-                    </div>
-                    <div style="border-color: gray; border: solid; border-radius: 10px; background-color: #f2f2f2; margin: 10px; padding: 10 px;">
                         <h3>To</h3>
                         <div class="input-group mb-3">
                             <span class="input-group-text bg-primary">
                               <i class="bi bi-mortarboard-fill text-white"></i>
                             </span>
-                            <select id="from" name="from" class="form-control" style="appearance:menulist">
-                              <option selected disabled hidden>To</option>
-                              <option value="Savings">Savings: $1212.64</option>
-                              <option value="Checking">Checking: $152.60</option>
-                              <option value="Another User">Another User</option>
+                            <select onchange="checkOtherUser()"id="to" name="to" class="form-control" style="appearance:menulist">
+                              <option selected disabled hidden value="">To</option>
+                              <option value="Savings">Savings: $<%- locals.savings%></option>
+                              <option value="Checking">Checking: $<%- locals.checking%></option>
+                              <option value="Another User (checking)">Another User (checking)</option>
+                              <option value="Another User (savings)">Another User (savings)</option>
+                              <% if (locals.empManage) { %> <option value="Withdrawal">Withdrawal</option><% } %>
                             </select>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-primary">
-                                  <i class="bi bi-person-plus-fill text-white"></i>
-                                </span>
-                                <input id="accountNum" name="accountNum" type="number" class="form-control" placeholder="Account Number">
-                              </div>
+                            <div id="otherEmailDiv" class="input-group mb-3" style="visibility: hidden;">
+                              <span class="input-group-text bg-primary">
+                                <i class="bi bi-person-plus-fill text-white"></i>
+                              </span>
+                              <input id="otherEmail" name="otherEmail" type="email" class="form-control" placeholder="otherEmail" >
+                            </div>
                           </div>
+                          <h3>Amount</h3>
+                          <div class="input-group mb-3" >
+                          <span class="input-group-text bg-primary">
+                            <i class="bi bi-currency-dollar text-white"></i>
+                          </span>
+                          <input id="amount" name="amount" type="number" min="0.01" step="any" class="form-control" placeholder="amount" >
+                        </div>
+                        <div class="input-group mb-3" id="memoDiv">
+                        <h3 id="memoH3">Memo</h3>
+                        <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary">
+                          <i class="bi bi-pencil-square text-white"></i>
+                        </span>
+                        <input id="memo" name="memo" type="text" class="form-control" placeholder="Memo" >
+                        </div>
+                    </div>
+                    <div>
+                      <p id="message" class="text-danger">
+                        <%- locals.message %>
+                      </p>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary mt-2">
+                        <a href="/account"><button class="btn btn-primary mt-2" type="button">
                             Back
-                        </button>
-                        <button class="btn btn-primary mt-2" type="submit">
+                        </button></a>
+                        <button class="btn btn-primary mt-2" type="submit" >
                             Submit
                         </button>
                     </div>

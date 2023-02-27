@@ -1,40 +1,62 @@
 var express = require('express');
+const { password } = require('../lib/connectionInfo');
 var router = express.Router();
 
-//var dbCon = require('../lib/database');
+var dbCon = require('../lib/database');
 
 /* GET page. */
 router.get('/', function(req, res, next) {
   console.log("register.js: GET");
-  res.render('register', {});
+  req.session.destroy(function(err){
+    if (err) {
+      throw err;
+    }
+    res.render('register', {});
+  });
 });
 
 /* POST page. */
 router.post('/', function(req, res, next) {
-    /*
+    
     console.log("register.js: POST");
-    let name = req.body.name;
-    let email = req.body.email;
-    let gender = req.body.gender;
-    let education = req.body.education;
-    let hash = req.body.hash;
-    let salt = req.body.salt;
+    const firstname = req.body.fName;
+    const lastname = req.body.lName;
+    const email = req.body.email;
+    const hash = req.body.hash;
+    const salt = req.body.salt;
 
-    let sql = "INSERT INTO users (fullname, email, gender, education, pass) VALUES ('" +
-                                name + "', '" +
-                                        email + "', '" +
-                                              gender + "', '" +
-                                                      education + "', '" +
-                                                                hash + "');";
-    console.log("create.js: sql statement is: " + sql);
-    dbCon.execute(sql, function(err, results, fields) {
+    console.log("register.js: email: " + email + " salt: " + salt + " hash: " + hash);
+    let sql = "CALL register_user (?, ?, ?, ?, ?, @result); SELECT @result;";
+    dbCon.query(sql, [email, firstname, lastname, hash, salt], function(err, rows) {
       if (err) {
         throw err;
       }
-      console.log("Inserted user");
+      if (rows[1][0]['@result'] == 0){
+        
+        // Set session variables
+        req.session.email = email;
+        req.session.loggedIn = true;
+
+        // Since session updates aren't synchronous and automatic because they are inserted into the MySQL database
+        // we have to wait for the database to come back with a result.  req.session.save() will trigger a function when 
+        // the save completes
+        req.session.save(function(err) {
+          if (err) {
+            throw err;
+          }
+          console.log("register.js: Successful registration, a session field is: " + req.session.email);
+          
+          // Redirect the user to the home page.  Let that redirect the user to the next correct spot.
+          res.redirect('/');
+        });
+      } else {
+        // This user account already exists
+        console.log("register.js: Email already exists.  Reload register page with that message.");
+        res.render('register', {message: "An account with email '" + email + "' already exists"});
+      }
     })
-    */
-    res.redirect('/login');
+    
+    //res.redirect('/login');
 });
 
 module.exports = router;

@@ -10,7 +10,6 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/loginUser');
 var registerRouter = require('./routes/register');
 var searchRouter = require('./routes/search');
-var resultsRouter = require('./routes/results');
 var accountRouter = require('./routes/account');
 var changePasswordRouter = require('./routes/changePassword');
 var accountHistoryRouter = require('./routes/accounthistory');
@@ -30,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist")));
 app.use(express.static(path.join(__dirname, "node_modules/bootstrap-icons")));
+app.use(express.static(path.join(__dirname, "node_modules/crypto-js/")));
 
 // This will set up the database if it doesn't exist.
 var dbcon = require('./lib/database');
@@ -61,9 +61,8 @@ app.use('/login', loginRouter);
 app.use('/loginuser', loginRouter);
 app.use('/register', registerRouter);
 app.use('/search', searchRouter);
-app.use('/results', resultsRouter);
 app.use('/account', accountRouter);
-app.use('/changePassword', changePasswordRouter);
+app.use('/changepassword', changePasswordRouter);
 app.use('/accounthistory', accountHistoryRouter);
 app.use('/transfer', transferRouter);
 app.use('/regrade', adminRegradeRouter);
